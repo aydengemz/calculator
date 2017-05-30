@@ -70,24 +70,60 @@ class Board extends React.Component {
   if(n === "="){
      console.log("equal");
      var eq = this.state.entered.indexOf("=");
-     var asmd = this.state.entered.indexOf("+") || 
-                this.state.entered.indexOf("-") || 
-                this.state.entered.indexOf("x") || 
-                this.state.entered.indexOf("/");
-     console.log(eq);
-     console.log(asmd); 
-     var firstOp = this.state.entered.slice(0, asmd);
-     console.log(firstOp);
-       var lastOp = this.state.entered.slice(asmd + 1, eq);
-     console.log(lastOp);
+
+     var asmd;
+     if (this.state.entered.indexOf("-")!= -1){
+        asmd = this.state.entered.indexOf("-");
+     }
+      if (this.state.entered.indexOf("+")!= -1){
+        asmd = this.state.entered.indexOf("+");
+     }
+      if (this.state.entered.indexOf("x")!= -1){
+        asmd = this.state.entered.indexOf("x");
+     }
+      if (this.state.entered.indexOf("/")!= -1){
+        asmd = this.state.entered.indexOf("/");
+     }
      
+
+      
+     console.log("index of = is: " +eq);
+     console.log("index of op is: " + asmd); 
+
+     var firstOp = this.state.entered.slice(0, asmd);
+     console.log("first array: " + firstOp);
+       var lastOp = this.state.entered.slice(asmd + 1, eq);
+     console.log("second array: " +lastOp);
 
      var firstNumber = this.makeNumber(firstOp);
      var lastNumber = this.makeNumber(lastOp);
+     console.log("first number: " + firstNumber);
+     console.log("second number: "+ lastNumber);
 
-var finalAnswerAdd = firstNumber + lastNumber;
-console.log("answer: " + finalAnswerAdd);
-document.getElementById("label").innerHTML = finalAnswerAdd;
+    var finalAnswer;
+   var opReturn = this.state.entered[asmd];
+  console.log(opReturn);
+     switch(opReturn){
+       case '+':
+          finalAnswer = firstNumber + lastNumber;
+          break;
+       case'-':
+         finalAnswer = firstNumber - lastNumber;
+          break;
+       case 'x':
+         finalAnswer = firstNumber * lastNumber;
+          break;
+       case'/':
+         finalAnswer = firstNumber / lastNumber;
+          break;
+     }
+     
+
+
+
+
+console.log("answer: " + finalAnswer);
+document.getElementById("label").innerHTML = finalAnswer;
 
 
   }
